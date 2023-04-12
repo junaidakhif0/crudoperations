@@ -3,6 +3,7 @@ from django.shortcuts import render
 # Create your views here.
 from app.models import *
 from django.db.models.functions import Length
+from django.db.models import Q
 def displaytopic(request):
 
     T=Topic.objects.all()
@@ -21,6 +22,18 @@ def displaywebpage(request):
     W=Webpage.objects.all().order_by('-name')
     W=Webpage.objects.all().order_by(Length('name'))
     W=Webpage.objects.all().order_by(Length('name').desc())
+
+    #fieldlooups
+    
+    W=Webpage.objects.filter(name__startswith='D')
+    W=Webpage.objects.filter(name__endswith='i')
+    W=Webpage.objects.filter(name__contains='H')
+    W=Webpage.objects.filter(name__in=('Kohli','AKHIF'))
+    W=Webpage.objects.filter(name__regex='[a-zA-Z]{4}')
+    W=Webpage.objects.filter(name__startswith='D')
+    W=Webpage.objects.filter(Q(topic_name='Cricket') & Q(name='DHONI'))
+    W=Webpage.objects.filter(Q(topic_name='Cricket'))
+    
     e={'webpages':W}
     
     return render(request,'displaywebpage.html',e)
