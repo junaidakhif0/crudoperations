@@ -46,6 +46,14 @@ def displayaccessrecords(request):
     A=AccessRecords.objects.filter(date__gte='2001-1-1')
     A=AccessRecords.objects.filter(date__lt='2005-1-1')
     A=AccessRecords.objects.filter(date__lte='2005-1-1')
+    A=AccessRecords.objects.filter(date__year='2005')
+    A=AccessRecords.objects.filter(date__month='1')
+    A=AccessRecords.objects.filter(date__day='1')
+    A=AccessRecords.objects.filter(date__year__gt='2005')
+    A=AccessRecords.objects.filter(date__month__gt='1')
+    
+
+
     f={'accessrecords':A}
     
     return render(request,'displayaccessrecord.html',f)
